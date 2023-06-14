@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo List</title>
+    </head>
+    <body>
+        <p>Todo List</p>
+        <input type="text" placeholder="Todo name" class="todo-input">
+        <input type="date" class="js-date-input">
+        <button class="add-button">Add</button>
+
+        <div class="display-todo"></div>
+
+        <script>
+            let arr = [
+                {
+                    name: 'make dinner',
+                    dueDate: '2023-04-24'
+                }, {
+                    name: 'make dinner',
+                    dueDate: '2023-04-24'
+                }
+            ];
+            renderTodoList();
+
+            function renderTodoList() {
+                let arrListHTML = '';
+
+                arr.forEach((arrListObject, index) =>{
+                    const {name, dueDate} = arrListObject;
+                    const html = `
+                    <p>${name} ${dueDate}
+                        <button onclick="
+                        arr.splice(${index}, 1);
+                        renderTodoList()
+                        ">Delete</button>
+                        </p>`;
+                     arrListHTML += html
+                 });
+
+                console.log(arrListHTML)
+                        
+                let display = document.querySelector('.display-todo')
+                 .innerHTML = arrListHTML
+            }
+           
+            let todoInput = document.querySelector('.todo-input')
+
+                const addButton = document.querySelector('.add-button')
+                    addButton.addEventListener("click", ()=> {
+                        const todoInputDisplay = todoInput.value
+                    
+            const dateInputElement = document.querySelector('.js-date-input') 
+            const date = dateInputElement.value
+            
+                        arr.push({
+                            name: todoInputDisplay,
+                            dueDate: date
+                        });
+                        console.log(arr)
+
+                        todoInput.value = '';
+                        renderTodoList();
+                    })
+                
+               
+        </script>
+
+
+    </body>
+</html>
